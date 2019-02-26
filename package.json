@@ -1,0 +1,30 @@
+{
+  "name": "Sticky-Notes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Moonkaman/Sticky-Notes.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Moonkaman/Sticky-Notes/issues"
+  },
+  "homepage": "https://github.com/Moonkaman/Sticky-Notes#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "helmet": "^3.15.1",
+    "knex": "^0.16.3",
+    "morgan": "^1.9.1",
+    "sqlite3": "^4.0.6"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  }
+}
