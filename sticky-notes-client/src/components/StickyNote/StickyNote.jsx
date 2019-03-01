@@ -21,12 +21,12 @@ const StickyNote = props => {
       position={position}
       onDrag={handleDrag}
       grid={[5, 5]}
-      bounds=".App"
+      bounds=".sticky-board"
       onStop={testFunc}
     >
       <div className="sticky-note" style={{ background: color }}>
-        <h4>Test</h4>
-        <p>
+        <h4 className="title">Test</h4>
+        <p className="text">
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eveniet
           debitis est perferendis commodi ratione, quia quidem minima sit cumque
           magni praesentium?

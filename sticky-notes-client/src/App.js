@@ -1,15 +1,16 @@
 import React, { Component } from "react";
 
-import StickyNote from './components/Sticky-Notes/StickyNote';
-
 import "./App.css";
+
+import StickyBoard from './components/StickyBoard/StickyBoard';
+
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>App</h1>
-        <StickyNote />
+        <h1>Sticky Notes</h1>
+        <StickyBoard />
       </div>
     );
   }
