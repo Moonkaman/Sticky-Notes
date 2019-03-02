@@ -2,6 +2,7 @@ const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 
 const db = require('../data/helpers/stickyDb');
+const generateToken = require('../config/tokenServices');
 
 router.get('/users', (req, res) => {
   db.get('users')
@@ -31,7 +32,8 @@ router.post('/login', (req, res) => {
     db.findUserBy({username: req.body.username})
       .then(user => {
         if(user && bcrypt.compareSync(req.body.password, user.password)) {
-          res.status(200).json({message: `Successfully Logged In, Welcome ${user.username}!`})
+          const token = generateToken(user);
+          res.status(200).json({message: `Successfully Logged In, Welcome ${user.username}!`, token})
         } else {
           res.status(401).json({message: 'Invalid Credentials'});
         }
