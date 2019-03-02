@@ -24,5 +24,5 @@ function remove(table, id) {
 }
 
 function findUserBy(filter) {
-  return db(table).where(filter).first();
+  return db('users').where(filter).first();
 }

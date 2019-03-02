@@ -14,7 +14,28 @@ router.post('/register', (req, res) => {
     req.body.password = bcrypt.hashSync(req.body.password, 14);
     db.add('users', req.body)
       .then(id => res.status(201).json({message: 'Successfully registered!', id: id[0]}))
-      .catch(err => res.status(500).json({message: 'Could not register at this time', err}));
+      .catch(err => {
+        if(err.errno = 19) {
+          res.status(400).json({message: 'This username has already been taken'});
+        } else {
+          res.status(500).json({message: 'Could not register at this time', err})
+        }
+      });
+  } else {
+    res.status(400).json({message: 'Please provide a username and password'});
+  }
+})
+
+router.post('/login', (req, res) => {
+  if(req.body.username && req.body.password) {
+    db.findUserBy({username: req.body.username})
+      .then(user => {
+        if(user && bcrypt.compareSync(req.body.password, user.password)) {
+          res.status(200).json({message: `Successfully Logged In, Welcome ${user.username}!`})
+        } else {
+          res.status(401).json({message: 'Invalid Credentials'});
+        }
+      })
   } else {
     res.status(400).json({message: 'Please provide a username and password'});
   }
