@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const secret = process.env.JWT_SECRET || 'Default Secret';
+const secret = process.env.JWT_SECRET || 'default secret';
 
 function generateToken(user){
   const payload = {

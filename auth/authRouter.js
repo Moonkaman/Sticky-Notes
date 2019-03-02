@@ -3,8 +3,9 @@ const bcrypt = require('bcryptjs');
 
 const db = require('../data/helpers/stickyDb');
 const generateToken = require('../config/tokenServices');
+const restricted = require('./restricted');
 
-router.get('/users', (req, res) => {
+router.get('/users', restricted, (req, res) => {
   db.get('users')
     .then(users => res.status(200).json(users))
     .catch(err => res.status(500).json({message: 'Could not retrieve list of users at this time', err}));
