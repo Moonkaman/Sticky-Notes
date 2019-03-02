@@ -4,6 +4,8 @@ exports.up = function(knex, Promise) {
     t.increments();
     t.string('username').unique().notNullable();
     t.string('password').notNullable();
+    t.string('profile_pic');
+    t.text('bio');
     t.timestamps(true, true);
   });
 };
