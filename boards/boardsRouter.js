@@ -29,7 +29,7 @@ router.put('/:id', (req, res) => {
       .then(board => {
         console.log(typeof req.params.id);
         console.log(typeof board.user_id)
-        if(board.user_id === Number(req.params.id)) {
+        if(board.user_id === req.decoded.subject) {
           db.update('boards', req.params.id, req.body)
           .then(count => {
             if(count > 0) {
@@ -44,9 +44,30 @@ router.put('/:id', (req, res) => {
           res.status(401).json({message: 'This borad does not belong to you'});
         }
       })
+      .catch(err => res.status(500).json({message: 'Could not update the board with the specified ID at this time', err}));
   } else {
     res.status(400).json({message: 'Please provide a title'});
   }
+})
+
+router.delete('/:id', (req, res) => {
+  db.get('boards', req.params.id)
+    .then(board => {
+      if(board.user_id === req.decoded.subject) {
+        db.remove('boards', req.params.id)
+        .then(count => {
+          if(count > 0) {
+            res.status(204).end();
+          } else {
+            res.status(404).json({message: 'The board you tried to delete was not found'});
+          }
+        })
+        .catch(err => res.status(500).json({message: 'Could not delete this board at this time', err}));
+      } else {
+        res.status(401).json({message: 'The board you tried to delete is not yours'});
+      }
+    })
+
 })
 
 module.exports = router;
