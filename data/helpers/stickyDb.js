@@ -7,8 +7,11 @@ module.exports = {
   findUserBy,
   findUserByID,
   getUsersBoards,
-  update
+  update,
+  getUsersFriends
 }
+
+//##################### GENERAL HELPERS ######################################\\
 
 function get(table, id) {
   if(id) {
@@ -31,6 +34,8 @@ function remove(table, id) {
   return db(table).where({id: id}).del();
 }
 
+//##################### AUTH HELPERS ######################################\\
+
 function findUserByID(id){
   return db('users').where({id: id}).first()
     .then(user => {
@@ -45,6 +50,14 @@ function findUserBy(filter) {
   return db('users').where(filter).first();
 }
 
-function getUsersBoards(userID){
+//##################### BOARDS HELPERS ######################################\\
+
+function getUsersBoards(userID) {
   return db('boards').where({user_id: userID});
+}
+
+//##################### FRIENDS HELPERS ######################################\\
+
+function getUsersFriends(userID) {
+  return db().select('u.id as id', 'u.username as Username').from('friends as f').innerJoin('users as u', 'f.user_id', 'u.id').where({'f.user_id': userID});
 }
